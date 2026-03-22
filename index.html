@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Nom de l'œuvre</title>
+
+<style>
+
+body{
+margin:0;
+background:#000;
+color:#fff;
+font-family:Helvetica,Arial,sans-serif;
+text-align:center;
+}
+
+.section{
+max-width:1200px;
+margin:120px auto;
+padding:20px;
+}
+
+.triptych img{
+width:32%;
+margin:0.5%;
+}
+
+.panel img{
+width:100%;
+margin-bottom:40px;
+}
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+gap:10px;
+}
+
+.gallery img{
+width:100%;
+cursor:pointer;
+transition:0.2s;
+}
+
+.gallery img:hover{
+opacity:0.85;
+}
+
+/* viewer */
+
+.viewer{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+justify-content:center;
+align-items:center;
+z-index:999;
+}
+
+.viewer img{
+max-width:90%;
+max-height:90%;
+}
+
+.nav{
+position:absolute;
+top:50%;
+font-size:40px;
+cursor:pointer;
+user-select:none;
+padding:20px;
+}
+
+.prev{left:20px;}
+.next{right:20px;}
+
+.close{
+position:absolute;
+top:20px;
+right:30px;
+font-size:40px;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="section">
+<h1>Nom de l'œuvre</h1>
+<p>pour [prénom]</p>
+</div>
+
+<div class="section triptych">
+<img src="images/triptych.jpg">
+</div>
+
+<div class="section panel">
+
+<h2>Panneau I</h2>
+<img src="images/panel1.jpg">
+
+<div class="gallery">
+
+<img src="images/1.jpg">
+<img src="images/2.jpg">
+<img src="images/3.jpg">
+<img src="images/4.jpg">
+<img src="images/5.jpg">
+<img src="images/6.jpg">
+<img src="images/7.jpg">
+<img src="images/8.jpg">
+<img src="images/9.jpg">
+<img src="images/10.jpg">
+<img src="images/11.jpg">
+<img src="images/12.jpg">
+
+</div>
+
+</div>
+
+
+<div class="section panel">
+
+<h2>Panneau II</h2>
+<img src="images/panel2.jpg">
+
+<div class="gallery">
+
+<img src="images/13.jpg">
+<img src="images/14.jpg">
+<img src="images/15.jpg">
+<img src="images/16.jpg">
+<img src="images/17.jpg">
+<img src="images/18.jpg">
+<img src="images/19.jpg">
+<img src="images/20.jpg">
+<img src="images/21.jpg">
+<img src="images/22.jpg">
+<img src="images/23.jpg">
+<img src="images/24.jpg">
+
+</div>
+
+</div>
+
+
+<div class="section panel">
+
+<h2>Panneau III</h2>
+<img src="images/panel3.jpg">
+
+<div class="gallery">
+
+<img src="images/25.jpg">
+<img src="images/26.jpg">
+<img src="images/27.jpg">
+<img src="images/28.jpg">
+<img src="images/29.jpg">
+<img src="images/30.jpg">
+<img src="images/31.jpg">
+<img src="images/32.jpg">
+<img src="images/33.jpg">
+<img src="images/34.jpg">
+<img src="images/35.jpg">
+<img src="images/36.jpg">
+
+</div>
+
+</div>
+
+
+<!-- viewer -->
+
+<div class="viewer" id="viewer">
+
+<span class="close" onclick="closeViewer()">×</span>
+<span class="nav prev" onclick="prev()">❮</span>
+<img id="viewer-img">
+<span class="nav next" onclick="next()">❯</span>
+
+</div>
+
+
+<script>
+
+const images = document.querySelectorAll(".gallery img");
+const viewer = document.getElementById("viewer");
+const viewerImg = document.getElementById("viewer-img");
+
+let current = 0;
+
+images.forEach((img,index)=>{
+img.addEventListener("click",()=>{
+viewer.style.display="flex";
+viewerImg.src=img.src;
+current=index;
+});
+});
+
+function closeViewer(){
+viewer.style.display="none";
+}
+
+function next(){
+current=(current+1)%images.length;
+viewerImg.src=images[current].src;
+}
+
+function prev(){
+current=(current-1+images.length)%images.length;
+viewerImg.src=images[current].src;
+}
+
+document.addEventListener("keydown",e=>{
+if(viewer.style.display==="flex"){
+if(e.key==="ArrowRight") next();
+if(e.key==="ArrowLeft") prev();
+if(e.key==="Escape") closeViewer();
+}
+});
+
+</script>
+
+</body>
+</html>
